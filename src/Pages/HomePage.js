@@ -1,7 +1,7 @@
-const HomePage = () =>{
-    return(
+const HomePage = () => {
+    return (
         <div>
-            Home Page!!
+            Home Page Hello World!
         </div>
     );
 
