@@ -3,6 +3,7 @@ import { Route, Routes, Navigate } from "react-router";
 import HomePage from "./HomePage/HomePage";
 import ResponsiveAppBar from "../Components/AppBar/AppBar";
 import { PropertyDetail } from "../Components/PropertyDetail/PropertyDetail";
+import SignUp from "../Components/SignUp/SignUp";
 
 const PageRoutes = () => {
   return (
@@ -11,6 +12,7 @@ const PageRoutes = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/properties" element={<PropertyDetail />} />
+        <Route path="/properties" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,42 @@
+body {
+    margin: 10px;
+    font-family: Arial, Verdana, sans-serif;
+    color: #111111;
+}
+
+.baha {
+    margin: 10px;
+    color: blue;
+    text-align: left;
+}
+
+input {
+    margin: 5px;
+    border: double;
+    border-width: 4px;
+    border-color: green;
+    height: 30px;
+    color: blue;
+}
+
+#button {
+    margin: 5px;
+    border: solid;
+    border-width: 2px;
+    height: 30px;
+    border-color: green;
+    font-family: "time new roman";
+}
+
+div.add {
+    width: 400px;
+    border: 4px double rgba(246, 4, 4, 0.926);
+    margin: 10px;
+    padding: 5px;
+    text-align: left;
+}
+
+p {
+    margin: 5px;
+    padding: 5px;
+}
