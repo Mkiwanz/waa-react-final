@@ -1,0 +1,18 @@
+.homeHeader {
+  min-height: 400px;
+  position: relative;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  justify-content: left;
+  background-color: white;
+  background-image: url("../../Resources/Images/background.jpg");
+}
+
+.filter{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    inset: 0px 0px auto;
+    flex-direction: column;
+}
