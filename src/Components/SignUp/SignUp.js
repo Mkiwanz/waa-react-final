@@ -39,7 +39,6 @@ function SignUp() {
         } else {
             alert('All fields are required');
         }
-        navigate('/');
     }
 
     return (
