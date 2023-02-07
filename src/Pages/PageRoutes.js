@@ -4,6 +4,7 @@ import HomePage from "./HomePage/HomePage";
 import ResponsiveAppBar from "../Components/AppBar/AppBar";
 import { PropertyDetail } from "../Components/PropertyDetail/PropertyDetail";
 import SignUp from "../Components/SignUp/SignUp";
+import NewApplication from "../Components/NewApplication/NewApplication";
 
 const PageRoutes = () => {
   return (
@@ -12,7 +13,8 @@ const PageRoutes = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/properties" element={<PropertyDetail />} />
-        <Route path="/properties" element={<SignUp />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/newApplication" element={<NewApplication />} />
       </Routes>
     </BrowserRouter>
   );
