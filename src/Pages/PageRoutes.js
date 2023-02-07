@@ -15,7 +15,7 @@ const PageRoutes = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/properties" element={<PropertyDetail />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/signup" element={<Login />} />
+        <Route path="/Login" element={<Login />} />
         <Route path="/newApplication" element={<NewApplication />} />
       </Routes>
     </BrowserRouter>
