@@ -4,7 +4,7 @@ import "./SignUp.css";
 import { useNavigate } from "react-router";
 function SignUp() {
     const userFrom = useRef();
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
     const [emailState, setEmailState] = useState('');
     const [confirmEmailState, setConfirmEmailState] = useState('');
     const [passwordState, setPasswordState] = useState('');
@@ -28,7 +28,7 @@ function SignUp() {
                 axios.post("http://localhost:8080/api/v1/user", data)
                     .then(data => {
                         console.log(data)
-                        //navigate('/homepage');
+                        navigate('/');
                     }).catch(error => {
                         console.error(error);
                     })
@@ -39,6 +39,7 @@ function SignUp() {
         } else {
             alert('All fields are required');
         }
+        navigate('/');
     }
 
     return (
