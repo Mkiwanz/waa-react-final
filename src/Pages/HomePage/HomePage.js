@@ -13,7 +13,7 @@ const HomePage = () => {
           <input
             type="text"
             id="search-bar"
-            placeholder="Address, School, City, Zip or Neighborhood"
+            placeholder="        Address, School, City, Zip or Neighborhood"
           />
           <IconButton aria-label="search" color="secondary">
             <SearchIcon />
