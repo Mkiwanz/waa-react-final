@@ -72,11 +72,13 @@ function Properties() {
   const [searchParams] = useSearchParams();
 
   return (
-    <Grid container spacing={15}>
+    <Grid container spacing={5}>
       {propertyData.map((house) => {
         return (
-          <Grid item md={3}>
+          <Grid item md={4}>
+            <Link to="/properties" style={{textDecoration: 'none'}}>
             <Property house={house} />
+            </Link>
           </Grid>
         );
       })}

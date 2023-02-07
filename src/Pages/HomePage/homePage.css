@@ -1,20 +1,32 @@
 .homeHeader {
   min-height: 400px;
-  position: relative;
   display: flex;
   -webkit-box-align: center;
   align-items: center;
-  justify-content: left;
+  justify-content: center;
   background-color: white;
-  background-image: url("../../Resources/Images/background.jpg");
-  background-repeat:no-repeat;
-  background-size:cover;
+  background-image: url("../../Resources/Images/homepage.jpg");
+}
+.homeBody {
+  padding-left: 100px;
+}
+.filter {
+  display: flex;
+  align-items: center;
+  inset: 0px 0px auto;
+  flex-direction: row;
+  position: relative;
 }
 
-.filter{
-    display: flex;
-    align-items: center;
-    width: 100%;
-    inset: 0px 0px auto;
-    flex-direction: column;
+.filter input {
+  width: 500px;
+  height: 40px;
+  border-radius: 12px;
+  border: blue;
+}
+
+.filter button {
+  position: absolute;
+  right: 8px;
+  top: 0;
 }
