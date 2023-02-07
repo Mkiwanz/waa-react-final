@@ -1,4 +1,4 @@
-body {
+.body1 {
     margin: 10px;
     font-family: Arial, Verdana, sans-serif;
     color: #111111;
@@ -10,7 +10,7 @@ body {
     text-align: left;
 }
 
-input {
+.input1 {
     margin: 5px;
     border: double;
     border-width: 4px;
@@ -28,15 +28,15 @@ input {
     font-family: "time new roman";
 }
 
-div.add {
+.div1 {
     width: 400px;
-    border: 4px double rgba(246, 4, 4, 0.926);
+    border: 4px double rgba(14, 14, 14, 0.926);
     margin: 10px;
     padding: 5px;
     text-align: left;
 }
 
-p {
+.p1 {
     margin: 5px;
     padding: 5px;
 }

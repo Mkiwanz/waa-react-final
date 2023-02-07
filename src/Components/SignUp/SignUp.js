@@ -1,30 +1,34 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import "./SignUp.css";
 import { useNavigate } from "react-router";
 function SignUp() {
-    <h1>hello world!</h1>
     const userFrom = useRef();
     //const navigate = useNavigate();
+    const [emailState, setEmailState] = useState('');
+    const [confirmEmailState, setConfirmEmailState] = useState('');
+    const [passwordState, setPasswordState] = useState('');
+    const [confirmPasswordState, setConfirmPasswordState] = useState('');
+    const [phoneState, setPhoneState] = useState('');
     function submitHandler(e) {
         const form = userFrom.current;
-        e.preventDefault()
-        const data = {
-            email: form['email'].value,
-            confirmEmail: form['confirmEmail'].value,
-            password: form['password'].value,
-            ConfirmPassword: form['ConfirmPassword'].value,
-            phone: form['phone'].value,
-        }
-
-        if (data['email'].value !== '' && data['password'].value !== '') {
-            alert(data['email'] + ', ' + data['confirmEmail'] + ', ' + data['password'] + ', ' + data['ConfirmPassword'] + ', ' + data['phone']);
-            if (data['email'].value === data['confirmEmail'].value && data['password'].value === data['ConfirmPassword'].value) {
+        e.preventDefault();
+        //console.log('length=' + emailState.length);
+        if (emailState.length !== 0 && confirmEmailState.length !== 0 && passwordState.length !== 0
+            && confirmPasswordState.length !== 0 && phoneState.length !== 0) {
+            //alert(data['email'] + ', ' + data['confirmEmail'] + ', ' + data['password'] + ', ' + data['ConfirmPassword'] + ', ' + data['phone']);
+            if (emailState === confirmEmailState && passwordState === confirmPasswordState) {
+                let data = {
+                    email: form['email'].value,
+                    confirmEmail: form['confirmEmail'].value,
+                    password: form['password'].value,
+                    ConfirmPassword: form['ConfirmPassword'].value,
+                    phone: form['phone'].value,
+                }
                 axios.post("http://localhost:8080/api/v1/user", data)
                     .then(data => {
                         console.log(data)
                         //navigate('/homepage');
-                        alert('Your data has been saved, please login your portal.');
                     }).catch(error => {
                         console.error(error);
                     })
@@ -43,23 +47,33 @@ function SignUp() {
                 <legend>Create a professional account</legend>
                 Email address
                 <br />
-                <input name="email" type="email" required="required" placeholder="Enter your email address" defaultValue='' />
+                <input className="input1" name="email" type="email" required="required" placeholder="Enter your email address"
+                    onChange={e => setEmailState(e.target.value)}
+                />
                 <br />
                 Confirm email address
                 <br />
-                <input name="confirmEmail" required="required" type="email" placeholder="Confirm your email address" />
+                <input className="input1" name="confirmEmail" required="required" type="email" placeholder="Confirm your email address"
+                    onChange={e => setConfirmEmailState(e.target.value)}
+                />
                 <br />
                 Password
                 <br />
-                <input name="password" required="required" type="password" placeholder="Enter your password" defaultValue='' />
+                <input className="input1" name="password" required="required" type="password" placeholder="Enter your password" defaultValue=''
+                    onChange={e => setPasswordState(e.target.value)}
+                />
                 <br />
                 Confirm password
                 <br />
-                <input name="ConfirmPassword" required="required" type="password" placeholder="Confirm your password" />
+                <input className="input1" name="ConfirmPassword" required="required" type="password" placeholder="Confirm your password"
+                    onChange={e => setConfirmPasswordState(e.target.value)}
+                />
                 <br />
                 Phone number
                 <br />
-                <input name="phone" type="text" required="required" placeholder="Enter your phone number" />
+                <input className="input1" name="phone" type="text" required="required" placeholder="Enter your phone number"
+                    onChange={e => setPhoneState(e.target.value)}
+                />
                 <br />
                 <input type="submit" id="button" onClick={submitHandler} />
             </fieldset>
