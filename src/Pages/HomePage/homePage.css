@@ -7,6 +7,8 @@
   justify-content: left;
   background-color: white;
   background-image: url("../../Resources/Images/background.jpg");
+  background-repeat:no-repeat;
+  background-size:cover;
 }
 
 .filter{

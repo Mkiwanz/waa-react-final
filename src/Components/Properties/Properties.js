@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link, useSearchParams } from "react-router-dom";
+import Grid from '@mui/material/Grid';
 
 import Property from "../Property/Property";
-import houseImage from "../../Resources/Images/background.jpg"
+import houseImage from "../../Resources/Images/background.jpg";
 
 import Filter from "../Filter/Filter";
 
@@ -71,24 +72,15 @@ function Properties() {
   const [searchParams] = useSearchParams();
 
   return (
-    <div>
-      <Container>
-        <Row>
-          {propertyData.map((house) => {
-            return (
-              <Col md={3} key={house.id}>
-                <Link
-                  to={`/properties/${house.id}`}
-                  style={{ textDecoration: "none" }}
-                >
-                  <Property house={house} />
-                </Link>
-              </Col>
-            );
-          })}
-        </Row>
-      </Container>
-    </div>
+    <Grid container spacing={15}>
+      {propertyData.map((house) => {
+        return (
+          <Grid item md={3}>
+            <Property house={house} />
+          </Grid>
+        );
+      })}
+    </Grid>
   );
 }
 
