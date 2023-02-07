@@ -38,7 +38,7 @@ function SignUp() {
     }
 
     return (
-        <form ref={userFrom} className="baha">
+        <form ref={userFrom} className="form1">
             <fieldset>
                 <legend>Create a professional account</legend>
                 Email address
