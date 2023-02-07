@@ -1,5 +1,42 @@
-.details {
+/* .details {
   text-align: center;
   font-family: cursive;
   font-size: large;
+} */
+.property-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.property-details h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.property-details img {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+
+.property-details p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.property-details h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.property-details ul {
+  list-style: none;
+  padding: 0;
+}
+
+.property-details li {
+  font-size: 18px;
+  margin-bottom: 10px;
 }
