@@ -2,7 +2,7 @@ import axios from "axios";
 import { useRef, useState } from "react";
 import "./SignUp.css";
 import { useNavigate } from "react-router";
-function SignUp() {
+const SignUp = () => {
     const userFrom = useRef();
     const navigate = useNavigate();
     const [emailState, setEmailState] = useState('');
