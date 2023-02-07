@@ -5,6 +5,7 @@ import ResponsiveAppBar from "../Components/AppBar/AppBar";
 import { PropertyDetail } from "../Components/PropertyDetail/PropertyDetail";
 import SignUp from "../Components/SignUp/SignUp";
 import NewApplication from "../Components/NewApplication/NewApplication";
+import Login from "../Components/Login/Login";
 
 const PageRoutes = () => {
   return (
@@ -14,6 +15,7 @@ const PageRoutes = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/properties" element={<PropertyDetail />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup" element={<Login />} />
         <Route path="/newApplication" element={<NewApplication />} />
       </Routes>
     </BrowserRouter>
