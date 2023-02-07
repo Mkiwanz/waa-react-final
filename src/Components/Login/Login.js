@@ -11,7 +11,17 @@ const Login = () => {
         const form = userFrom.current;
         e.preventDefault();
         if (emailState.length !== 0 && passwordState.length !== 0) {
-            //login in function here
+            let data = {
+                email: form['email'].value,
+                password: form['password'].value,
+            }
+            axios.get("http://localhost:8080/api/v1/user", data)
+                .then(data => {
+                    console.log(data)
+                    //navigate('/'); to user or admin or seller page 
+                }).catch(error => {
+                    console.error(error);
+                })
         } else {
             alert('All fields are required');
         }
