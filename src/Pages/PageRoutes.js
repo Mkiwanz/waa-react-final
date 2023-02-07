@@ -12,7 +12,7 @@ const PageRoutes = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/properties" element={<PropertyDetail />} />
-        <Route path="/properties" element={<SignUp />} />
+        <Route path="/signup" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );
