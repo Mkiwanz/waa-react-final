@@ -1,7 +1,9 @@
 import ImageSlider from "../ImageSlider/ImageSlide";
 import "./propertyDetail.css";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import axios from "axios";
 
 const SliderData = [
   {
@@ -25,7 +27,6 @@ const SliderData = [
       "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80",
   },
 ];
-// export const PropertyDetail = () => {
 //   const SliderData = [
 //     {
 //       image:
@@ -65,40 +66,36 @@ const SliderData = [
 
 export const PropertyDetail = () => {
   const [property, setProperty] = useState({});
-  // const propertyId = match.params.id;
+  const { id } = useParams();
 
   useEffect(() => {
-    setProperty([
-      {
-        title: "House",
-        description: "description",
-        location: "location",
-        price: "price",
-        bedrooms: "bedrooms",
-        bathrooms: "bathrooms",
-      },
-    ]);
-    // Fetch property data from API here
-    // and update the state using setProperty
+    axios
+      .get(`http://localhost:8081/api/v1/properties/${id}`)
+      .then((response) => {
+        setProperty(response.data);
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
   }, []);
 
-  const handelApply = () => {};
-
+  const handelLike = () => {
+    // Send API to add it to liked table
+  };
   return (
     <div>
       <div>
         <ImageSlider slides={SliderData} />
       </div>
       <div className="property-details">
-        <h1>{property.title}</h1>
-        <p>{property.description}</p>
-        <h2>Details</h2>
+        <h1>Price: ${property.price}</h1>
+        <h2>Property Details</h2>
         <ul>
-          <li>Location: {property.location}</li>
-          <li>Price: {property.price}</li>
-          <li>Bedrooms: {property.bedrooms}</li>
-          <li>Bathrooms: {property.bathrooms}</li>
+        <li> {property.address}</li>
+          <p>{property.details}</p>
         </ul>
+        <FavoriteBorderIcon onClick={handelLike}></FavoriteBorderIcon>
         <Link to="/newApplication">
           <button>Apply Now</button>
         </Link>

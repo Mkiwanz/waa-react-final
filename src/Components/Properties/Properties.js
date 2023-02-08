@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Link, useSearchParams } from "react-router-dom";
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
 
 import Property from "../Property/Property";
 import houseImage from "../../Resources/Images/background.jpg";
+import axios from "axios";
 
 import Filter from "../Filter/Filter";
 
@@ -71,13 +72,28 @@ function Properties() {
   const [propertiesData, setPropertiesData] = useState([]);
   const [searchParams] = useSearchParams();
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:8081/api/v1/properties")
+      .then((response) => {
+        setPropertiesData(response.data);
+        // console.log(response.data);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+  }, []);
+
   return (
     <Grid container spacing={5}>
-      {propertyData.map((house) => {
+      {propertiesData.map((house) => {
         return (
-          <Grid item md={4}>
-            <Link to="/properties" style={{textDecoration: 'none'}}>
-            <Property house={house} />
+          <Grid item md={4} key={house.id}>
+            <Link
+              to={`/properties/${house.id}`}
+              style={{ textDecoration: "none" }}
+            >
+              <Property house={house} />
             </Link>
           </Grid>
         );

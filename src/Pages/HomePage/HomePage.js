@@ -10,15 +10,7 @@ const HomePage = () => {
     <div>
       <div className="homeHeader w-100">
         <div className="filter">
-          {/* <input
-            type="text"
-            id="search-bar"
-            placeholder="        Address, School, City, Zip or Neighborhood"
-          /> */}
           <Filter/>
-          {/* <IconButton aria-label="search" color="secondary">
-            <SearchIcon />
-          </IconButton> */}
         </div>
       </div>
       <br />
