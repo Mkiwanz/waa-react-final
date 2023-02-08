@@ -30,7 +30,7 @@ const Login = () => {
     return (
         <form ref={userFrom} className="form1">
             <fieldset>
-                <legend>Create a professional account</legend>
+                <legend>Login</legend>
                 Email address
                 <br />
                 <input className="input1" name="email" type="email" required="required" placeholder="Enter your email address"
