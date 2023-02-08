@@ -1,11 +1,11 @@
-import { BrowserRouter } from "react-router-dom";
-import { Route, Routes, Navigate } from "react-router";
+import { Route, Routes,BrowserRouter ,Navigate } from "react-router-dom";
 import HomePage from "./HomePage/HomePage";
 import ResponsiveAppBar from "../Components/AppBar/AppBar";
 import { PropertyDetail } from "../Components/PropertyDetail/PropertyDetail";
 import SignUp from "../Components/SignUp/SignUp";
 import NewApplication from "../Components/NewApplication/NewApplication";
 import Login from "../Components/Login/Login";
+
 
 const PageRoutes = () => {
   return (

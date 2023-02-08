@@ -13,6 +13,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const pages = ["Buy/Rent", "Contact Us"];
 const settings = [
@@ -26,32 +27,17 @@ const settings = [
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  // const handleOpenNavMenu = (event) => {
-  //   setAnchorElNav(event.currentTarget);
-  //   console.log("handleOpenNavMenu");
-  // };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-    console.log("handleOpenUserMenu");
-
   };
-
-  // const handleCloseNavMenu = () => {
-  //   setAnchorElNav(null);
-  //   console.log("handleCloseNavMenu");
-
-  // };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-    console.log("handleCloseUserMenu");
-
   };
 
   const handelMenuCLick = (events) => {
-    console.log("go to liked_properties");
-
     switch (events.currentTarget.id) {
       case "liked_properties":
         console.log("go to liked_properties");
@@ -87,7 +73,6 @@ function ResponsiveAppBar() {
           >
             WAA
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -154,13 +139,16 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
-          <Link to="/signup">
-            <button>SignUp</button>
-          </Link>
-
+          {isAuthenticated ? null : (
+            <div>
+              <Link to="/login">
+                <button>Login</button>
+              </Link>
+              <Link to="/signup">
+                <button>SignUp</button>
+              </Link>
+            </div>
+          )}
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

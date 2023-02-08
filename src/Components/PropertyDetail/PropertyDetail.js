@@ -73,7 +73,6 @@ export const PropertyDetail = () => {
       .get(`http://localhost:8081/api/v1/properties/${id}`)
       .then((response) => {
         setProperty(response.data);
-        console.log(response.data);
       })
       .catch((err) => {
         console.error(err.message);

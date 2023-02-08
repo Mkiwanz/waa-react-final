@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Navigate } from "react-router-dom";
 import axios from "axios";
 
 const PrivateRoute = ({ component, ...rest }) => {
@@ -32,7 +32,7 @@ const PrivateRoute = ({ component, ...rest }) => {
         isAuthenticated ? (
           React.createElement(component)
         ) : (
-          <Redirect
+          <Navigate
             to={{
               pathname: "/login",
               state: { from: location },
