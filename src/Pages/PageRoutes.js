@@ -13,9 +13,9 @@ const PageRoutes = () => {
       <ResponsiveAppBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/properties" element={<PropertyDetail />} />
+        <Route path="/properties/:id" element={<PropertyDetail />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/Login" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/newApplication" element={<NewApplication />} />
       </Routes>
     </BrowserRouter>

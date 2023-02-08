@@ -15,25 +15,54 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 
 const pages = ["Buy/Rent", "Contact Us"];
-const settings = ["Account", "Liked Properties", "Logout"];
+const settings = [
+  "Account",
+  "Liked Properties",
+  "Users List",
+  "Applications",
+  "Logout",
+];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+  // const handleOpenNavMenu = (event) => {
+  //   setAnchorElNav(event.currentTarget);
+  //   console.log("handleOpenNavMenu");
+  // };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
+    console.log("handleOpenUserMenu");
+
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  // const handleCloseNavMenu = () => {
+  //   setAnchorElNav(null);
+  //   console.log("handleCloseNavMenu");
+
+  // };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+    console.log("handleCloseUserMenu");
+
+  };
+
+  const handelMenuCLick = (events) => {
+    console.log("go to liked_properties");
+
+    switch (events.currentTarget.id) {
+      case "liked_properties":
+        console.log("go to liked_properties");
+        break;
+      case "users_list":
+        console.log("go to users_list");
+        break;
+      case "applications":
+        console.log("go to applications");
+        break;
+    }
   };
 
   return (
@@ -65,7 +94,7 @@ function ResponsiveAppBar() {
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleOpenNavMenu}
+              // onClick={handleOpenNavMenu}
               color="inherit"
             >
               <MenuIcon />
@@ -83,13 +112,13 @@ function ResponsiveAppBar() {
                 horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+              // onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: "block", md: "none" },
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem key={page}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -118,14 +147,14 @@ function ResponsiveAppBar() {
             {pages.map((page) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                // onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
               </Button>
             ))}
           </Box>
-          <Link to="/Login">
+          <Link to="/login">
             <button>Login</button>
           </Link>
           <Link to="/signup">
@@ -135,9 +164,10 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Kiwan" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
+
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
@@ -156,7 +186,13 @@ function ResponsiveAppBar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                  <Typography
+                    textAlign="center"
+                    id={setting.replace(/ /g, "_").toLowerCase()}
+                    onClick={handelMenuCLick}
+                  >
+                    {setting}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
