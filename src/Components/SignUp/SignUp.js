@@ -31,7 +31,7 @@ const SignUp = () => {
                 console.log(data)
                 axios.post("http://localhost:8080/api/v1/user", data)
                     .then(data => {
-                        // navigate('/');
+                        navigate('/');
                     }).catch(error => {
                         console.error(error);
                     })
