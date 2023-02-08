@@ -1,0 +1,31 @@
+.ButtonLogin {
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ButtonLogin-login {
+  background-color: #333;
+  color: #fff;
+}
+
+.ButtonLogin-login:hover {
+  background-color: #fff;
+  color: #333;
+  border: 2px solid #333;
+}
+
+.ButtonLogin-signup {
+  background-color: #fff;
+  color: #333;
+  border: 2px solid #333;
+}
+
+.ButtonLogin-signup:hover {
+  background-color: #333;
+  color: #fff;
+}

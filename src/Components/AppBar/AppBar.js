@@ -14,6 +14,8 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import "./AppBar.css";
+import ButtonLogin from "../Button/ButtonLogin";
 
 const pages = ["Buy/Rent", "Contact Us"];
 const settings = [
@@ -139,52 +141,55 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-          {isAuthenticated ? null : (
+          {isAuthenticated ? (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Kiwan" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Typography
+                      textAlign="center"
+                      id={setting.replace(/ /g, "_").toLowerCase()}
+                      onClick={handelMenuCLick}
+                    >
+                      {setting}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          ) : (
             <div>
               <Link to="/login">
-                <button>Login</button>
+                {/* <button>Login</button> */}
+                <ButtonLogin text="Login" type="login" />
               </Link>
               <Link to="/signup">
-                <button>SignUp</button>
+                {/* <button>SignUp</button> */}
+                <ButtonLogin text="Sign up" type="signup" />
               </Link>
             </div>
           )}
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Kiwan" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography
-                    textAlign="center"
-                    id={setting.replace(/ /g, "_").toLowerCase()}
-                    onClick={handelMenuCLick}
-                  >
-                    {setting}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
         </Toolbar>
       </Container>
     </AppBar>

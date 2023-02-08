@@ -1,8 +1,16 @@
 // Filter.js
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Filter.css";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { PropertiesContext } from "../../App";
 
 const Filter = () => {
+
+  const [propertiesData, setPropertiesData] = useContext(
+    PropertiesContext
+  );
+
   const [filter, setFilter] = useState({
     propertyType: "",
     priceRange: "",
@@ -18,13 +26,43 @@ const Filter = () => {
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // make an API call to retrieve the filtered properties based on the filter state
-  };
+  useEffect(() => {
+    console.log(filter);
+    const checkAuth = async () => {
+      const headers = {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      };
+      try {
+        let params = {
+          propertyType: filter.propertyType,
+          price: filter.priceRange,
+          rooms: filter.bedrooms,
+          bathrooms: filter.bathrooms,
+          zip: filter.location,
+        };
+
+        const response = await axios.get(
+          "api/v1/properties/filter",
+          { params },
+          headers
+        );
+        setPropertiesData(response.data);
+        console.log(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    checkAuth();
+  }, [filter]);
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   // make an API call to retrieve the filtered properties based on the filter state
+  // };
 
   return (
-    <form onSubmit={handleSubmit} className="filter-form">
+    <form className="filter-form">
       <label className="filter-label">
         Property Type:
         <select
@@ -92,13 +130,12 @@ const Filter = () => {
           onChange={handleChange}
           className="filter-input"
         />
-     </label>
-     <button type="submit" className="filter-button">
-       Filter
-     </button>
-   </form>
- );
+      </label>
+      {/* <button type="submit" className="filter-button">
+        Filter
+      </button> */}
+    </form>
+  );
 };
 
 export default Filter;
-
