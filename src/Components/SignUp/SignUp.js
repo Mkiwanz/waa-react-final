@@ -10,6 +10,7 @@ const SignUp = () => {
     const [passwordState, setPasswordState] = useState('');
     const [confirmPasswordState, setConfirmPasswordState] = useState('');
     const [phoneState, setPhoneState] = useState('');
+    const [userState, setUserState] = useState('');
     function submitHandler(e) {
         const form = userFrom.current;
         e.preventDefault();
@@ -20,15 +21,17 @@ const SignUp = () => {
             if (emailState === confirmEmailState && passwordState === confirmPasswordState) {
                 let data = {
                     email: form['email'].value,
-                    confirmEmail: form['confirmEmail'].value,
                     password: form['password'].value,
-                    ConfirmPassword: form['ConfirmPassword'].value,
                     phone: form['phone'].value,
+                    user: 'customer'
                 }
+                if (form['user'].value == 'owner') {
+                    data['user'] = 'owner';
+                }
+                console.log(data)
                 axios.post("http://localhost:8080/api/v1/user", data)
                     .then(data => {
-                        console.log(data)
-                        navigate('/');
+                        // navigate('/');
                     }).catch(error => {
                         console.error(error);
                     })
@@ -74,6 +77,9 @@ const SignUp = () => {
                 <input className="input1" name="phone" type="text" required="required" placeholder="Enter your phone number"
                     onChange={e => setPhoneState(e.target.value)}
                 />
+                <br />
+                User:<input type="radio" name="user" value="customer" checked />Customer
+                <input type="radio" name="user" value="owner" />Owner
                 <br />
                 <input type="submit" id="button" onClick={submitHandler} />
             </fieldset>

@@ -125,15 +125,13 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-          {/* <Link to="/login">
-            <button>Login</button>
-          </Link> */}
-          <Link to="/signup">
-            <button>SignUp</button>
-          </Link>
           <Link to="/Login">
             <button>Login</button>
           </Link>
+          <Link to="/signup">
+            <button>SignUp</button>
+          </Link>
+
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
