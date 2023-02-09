@@ -22,12 +22,11 @@ function NewProperty() {
             image: form["image"].value,
             owner: 'owner',//From the query string or parameters(Params) 
         };
-
-
+        data['image'].subString(indexOf('/'), data['image'].length);
         // alert('street=' + data.address['street'] + ', city=' + data.address['city'] + ', state=' + data.address['state']
         //     + ', zipcode=' + data.address['zipcode'] + ', room#=' + data['roomNumber'] + ', propertyStatus=' + data['propertyStatus']
         //     + ', bathroom#=' + data['bathNumber'] + ', area=' + data['area'] + ', price=' + data['price']);
-        alert(data['image']);
+        alert(data['image'].subString(indexOf('/'), data['image'].length););
     };
 
     return (
