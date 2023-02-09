@@ -20,6 +20,7 @@ function NewProperty() {
             area: form["area"].value,
             price: form["price"].value,
             image: form["image"].value,
+            owner: 'owner',//From the query string or parameters(Params) 
         };
 
 
