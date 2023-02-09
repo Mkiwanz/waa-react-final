@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const SliderData = [
   {
@@ -68,6 +69,8 @@ export const PropertyDetail = () => {
   const [property, setProperty] = useState({});
   const { id } = useParams();
 
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   useEffect(() => {
     axios
       .get(`http://localhost:8081/api/v1/properties/${id}`)
@@ -91,13 +94,22 @@ export const PropertyDetail = () => {
         <h1>Price: ${property.price}</h1>
         <h2>Property Details</h2>
         <ul>
-        <li> {property.address}</li>
+          <li> {property.address}</li>
           <p>{property.details}</p>
         </ul>
         <FavoriteBorderIcon onClick={handelLike}></FavoriteBorderIcon>
-        <Link to="/newApplication">
-          <button>Apply Now</button>
-        </Link>
+        {isAuthenticated ? (
+          <Link
+            to={`/newApplication/${id}`}
+            style={{ textDecoration: "none" }}
+          >
+            newApplication
+          </Link>
+        ) : (
+          <Link to="/login">
+            <button>Apply Now</button>
+          </Link>
+        )}
       </div>
     </div>
   );

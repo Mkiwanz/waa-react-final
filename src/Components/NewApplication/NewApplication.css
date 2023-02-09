@@ -1,0 +1,50 @@
+.application-type-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .application-type-label {
+    margin-right: 20px;
+    font-weight: bold;
+  }
+  
+  .application-type-input {
+    margin-right: 10px;
+  }
+  
+  .application-type-custom-label {
+    font-weight: normal;
+  }
+  
+  .selected-value {
+    margin-bottom: 20px;
+  }
+  
+  .form-input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .submit-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    font-size: 16px;
+    margin-top: 20px;
+  }
+  
+  .submit-button:hover {
+    background-color: #3e8e41;
+  }

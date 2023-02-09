@@ -5,6 +5,7 @@ import { PropertyDetail } from "../Components/PropertyDetail/PropertyDetail";
 import SignUp from "../Components/SignUp/SignUp";
 import NewApplication from "../Components/NewApplication/NewApplication";
 import Login from "../Components/Login/Login";
+import OfferList from "../Components/OffersList/OffersList";
 
 
 const PageRoutes = () => {
@@ -16,7 +17,8 @@ const PageRoutes = () => {
         <Route path="/properties/:id" element={<PropertyDetail />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/newApplication" element={<NewApplication />} />
+        <Route path="/newApplication/:propId" element={<NewApplication />} />
+        <Route path="/offers" element={<OfferList />} />
       </Routes>
     </BrowserRouter>
   );

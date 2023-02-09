@@ -12,7 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./AppBar.css";
 import ButtonLogin from "../Button/ButtonLogin";
@@ -23,6 +23,7 @@ const settings = [
   "Liked Properties",
   "Users List",
   "Applications",
+  "Offers List",
   "Logout",
 ];
 
@@ -30,6 +31,7 @@ function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const navigate = useNavigate();
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -50,6 +52,9 @@ function ResponsiveAppBar() {
       case "applications":
         console.log("go to applications");
         break;
+      case "offers_list":
+        navigate("/offers")
+      break;
     }
   };
 
