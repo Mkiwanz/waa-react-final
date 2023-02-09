@@ -22,11 +22,21 @@ function NewProperty() {
             image: form["image"].value,
             owner: 'owner',//From the query string or parameters(Params) 
         };
+        // image name only without the full path
+        //Within our project, create a folder and concatenate the new path with the name of the image
         data['image'].subString(indexOf('/'), data['image'].length);
+        //save the new property data
+        axios.post("http://localhost:8080/api/v1/user", data)
+            .then(data => {
+                console.log(data)
+                //navigate('/homepage');
+            }).catch(error => {
+                console.error(error);
+            })
         // alert('street=' + data.address['street'] + ', city=' + data.address['city'] + ', state=' + data.address['state']
         //     + ', zipcode=' + data.address['zipcode'] + ', room#=' + data['roomNumber'] + ', propertyStatus=' + data['propertyStatus']
         //     + ', bathroom#=' + data['bathNumber'] + ', area=' + data['area'] + ', price=' + data['price']);
-        alert(data['image'].subString(indexOf('/'), data['image'].length););
+        // alert(data['image'].subString(indexOf('/'), data['image'].length));
     };
 
     return (
@@ -76,6 +86,5 @@ function NewProperty() {
             </fieldset>
         </form>
     )
-
 }
 export default NewProperty;
