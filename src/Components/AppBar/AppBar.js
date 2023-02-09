@@ -21,7 +21,6 @@ import Role from "../../Resources/Roles";
 
 const pages = ["Buy/Rent", "Contact Us"];
 
-
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -29,21 +28,10 @@ function ResponsiveAppBar() {
   const navigate = useNavigate();
   const role = Cookies.get("role");
   let settings = ["Account"];
-  if(role === Role.CUSTOMER)
-  {
-    settings = [
-      "Account",
-      "Liked Properties",
-      "Offers List",
-      "Logout",
-    ];
-  }else if(role === Role.OWNER){
-    settings = [
-      "Account",
-      "My Properties",
-      "Offers List",
-      "Logout",
-    ];
+  if (role === Role.CUSTOMER) {
+    settings = ["Account", "Liked Properties", "Offers List", "Logout"];
+  } else if (role === Role.OWNER) {
+    settings = ["Account", "My Properties", "Logout"];
   }
 
   const handleOpenUserMenu = (event) => {
@@ -64,6 +52,14 @@ function ResponsiveAppBar() {
         break;
       case "offers_list":
         navigate("/offers");
+        break;
+      case "logout":
+        Cookies.remove("accessToken");
+        Cookies.remove("refreshToken");
+        Cookies.remove("userId");
+        Cookies.remove("userName");
+        Cookies.remove("role");
+        navigate("/login");
         break;
     }
   };

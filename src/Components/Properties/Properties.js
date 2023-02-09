@@ -10,14 +10,17 @@ import { useSelector } from "react-redux";
 import Filter from "../Filter/Filter";
 import { PropertiesContext } from "../../App";
 
+import Role from "../../Resources/Roles";
 function Properties() {
   // const [propertiesData, setPropertiesData] = useState([]);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   // const [searchParams] = useSearchParams();
   const [propertiesData, setPropertiesData] = useContext(PropertiesContext);
+  const userId = Cookies.get("userId");
+  const role = Cookies.get("role");
 
   useEffect(() => {
-    const checkAuth = async () => {
+    const getCustomerProperties = async () => {
       const headers = {
         Authorization: `Bearer ${Cookies.get("accessToken")}`,
       };
@@ -28,7 +31,19 @@ function Properties() {
         console.error(err);
       }
     };
-    checkAuth();
+    const getOwnerProperties = async () => {
+      const headers = {
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
+      };
+      try {
+        const response = await axios.get(`api/v1/users/${userId}/properties`);
+        setPropertiesData(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    if (role === Role.OWNER) getOwnerProperties();
+    else getCustomerProperties();
   }, []);
 
   return (

@@ -1,20 +1,20 @@
 import React from "react";
 
-const StatusDot = ({ status }) => {
+const OfferStatusDot = ({ status }) => {
   let backgroundColor;
   let statusDef = "";
   if (status === 1) {
     backgroundColor = "green";
-    statusDef = "For Sale";
+    statusDef = "Approved";
   } else if (status === 2) {
-    backgroundColor = "yellow";
-    statusDef = "Pending";
+    backgroundColor = "red";
+    statusDef = "Rejected";
   } else if (status === 3) {
     backgroundColor = "orange";
-    statusDef = "Contingent";
+    statusDef = "Deleted";
   } else {
-    backgroundColor = "red";
-    statusDef = "Sold";
+    backgroundColor = "blue";
+    statusDef = "Waiting";
   }
 
   return (
@@ -32,4 +32,4 @@ const StatusDot = ({ status }) => {
   );
 };
 
-export default StatusDot;
+export default OfferStatusDot;
