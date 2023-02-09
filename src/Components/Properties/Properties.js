@@ -1,20 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
-import { Link, Navigate, useSearchParams } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import Cookies from "js-cookie";
-
 import Property from "../Property/Property";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import Filter from "../Filter/Filter";
 import { PropertiesContext } from "../../App";
-
 import Role from "../../Resources/Roles";
+
 function Properties() {
-  // const [propertiesData, setPropertiesData] = useState([]);
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  // const [searchParams] = useSearchParams();
   const [propertiesData, setPropertiesData] = useContext(PropertiesContext);
   const userId = Cookies.get("userId");
   const role = Cookies.get("role");

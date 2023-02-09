@@ -8,32 +8,16 @@ import { Link, Navigate, useSearchParams } from "react-router-dom";
 
 const OfferList = (params) => {
   const [offers, setOffers] = useState([]);
+  const [refreshList, setRefreshList] = useState(false);
   const userId = Cookies.get("userId");
   const role = Cookies.get("role");
   let propertyStatus = params.propertyStatus;
   let propertyId = params.propertyId;
   console.log(params);
-  // useEffect(() => {
-  //   console.log(params);
-  //   const fetchCustomerOffers = async () => {
-  //     try {
-  //       let response;
-  //       if (role === Role.CUSTOMER) {
-  //         response = await axios.get(`api/v1/users/${userId}/CustomerOffers`);
-  //       } else {
-  //         response = await params;
-  //       }
-  //       setOffers(response.data);
-  //       // console.log(response.data);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
-
-  //   fetchCustomerOffers();
-  // }, []);
 
   useEffect(() => {
+    console.log("Offers Refresh");
+
     axios
       .get(`api/v1/users/${userId}/CustomerOffers`)
       .then((response) => {
@@ -42,94 +26,77 @@ const OfferList = (params) => {
         } else {
           setOffers(params.data);
         }
-        console.log(response.data);
       })
       .catch((err) => {
         console.error(err.message);
       });
-  }, []);
+  }, [refreshList]);
 
-  const handleAcceptOffer = async (offerId) => {
+  const handleAcceptOffer = (offerId) => {
     const headers = {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     };
-    try {
-      await axios.put(`api/v1/offers/${offerId}/approve`, headers);
-      const updatedOffers = offers.map((offer) => {
-        if (offer.id === offerId) {
-          return { ...offer, status: "approved" };
-        }
-        return offer;
+    axios
+      .put(`api/v1/offers/${offerId}/approve`, headers)
+      .then((response) => {
+        // setRefreshList(true);
+      })
+      .catch((err) => {
+        console.error(err.message);
       });
-      setOffers(updatedOffers);
-    } catch (error) {
-      console.error(error);
-    }
   };
-  const handleDenyOffer = async (offerId) => {
+  const handleDenyOffer = (offerId) => {
     const headers = {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     };
-    try {
-      await axios.put(`api/v1/offers/${offerId}/reject`, headers);
-      const updatedOffers = offers.map((offer) => {
-        if (offer.id === offerId) {
-          return { ...offer, status: "rejected" };
-        }
-        return offer;
+    axios
+      .put(`api/v1/offers/${offerId}/reject`, headers)
+      .then((response) => {
+        // setRefreshList(true);
+      })
+      .catch((err) => {
+        console.error(err.message);
       });
-      setOffers(updatedOffers);
-    } catch (error) {
-      console.error(error);
-    }
   };
-  const handelDeleteOffer = async (offerId) => {
-    try {
-      await axios.delete(`api/v1/offers/${offerId}`);
-      const updatedOffers = offers.map((offer) => {
-        if (offer.id === offerId) {
-          return { ...offer, status: "deleted" };
-        }
-        return offer;
-      });
-      setOffers(updatedOffers);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const handelContingentOffer = async (offerId) => {
+  const handelDeleteOffer = (offerId) => {
     const headers = {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     };
-    try {
-      await axios.put(`api/v1/properties/${propertyId}/contingent`, headers);
-      const updatedOffers = offers.map((offer) => {
-        if (offer.id === offerId) {
-          return { ...offer, status: "contingent" };
-        }
-        return offer;
+    axios
+      .delete(`api/v1/offers/${offerId}`, headers)
+      .then((response) => {
+        // setRefreshList(true);
+      })
+      .catch((err) => {
+        console.error(err.message);
       });
-      setOffers(updatedOffers);
-    } catch (error) {
-      console.error(error);
-    }
   };
-  const handelSold = async (offerId) => {
+  const handelContingentOffer = (offerId) => {
     const headers = {
       Authorization: `Bearer ${Cookies.get("accessToken")}`,
     };
-    try {
-      await axios.put(`api/v1/properties/${propertyId}/sold`, headers);
-      const updatedOffers = offers.map((offer) => {
-        if (offer.id === offerId) {
-          return { ...offer, status: "sold" };
-        }
-        return offer;
+    axios
+      .put(`api/v1/offers/${offerId}/contingent`, headers)
+      .then((response) => {
+        // setRefreshList(true);
+      })
+      .catch((err) => {
+        console.error(err.message);
       });
-      setOffers(updatedOffers);
-    } catch (error) {
-      console.error(error);
-    }
+  };
+
+  const handelSold = (offerId) => {
+    const headers = {
+      Authorization: `Bearer ${Cookies.get("accessToken")}`,
+    };
+    axios
+      .put(`api/v1/properties/${propertyId}/sold`, headers)
+      .then((response) => {
+        // setRefreshList(true);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
   };
   const buttonsToShow = (offerId, status, propStatus) => {
     switch (role) {
@@ -148,17 +115,15 @@ const OfferList = (params) => {
             } else if (propertyStatus === 2) {
               return (
                 <div>
-                  <button onClick={() => handleDenyOffer(offerId)}>Deny</button>
-                  <button onClick={() => handelDeleteOffer(offerId)}>
-                    Delete Offer
+                  <button onClick={() => handleAcceptOffer(offerId)}>
+                    Accept
                   </button>
+                  <button onClick={() => handleDenyOffer(offerId)}>Deny</button>
                 </div>
               );
             } else if (propertyStatus === 3) {
               return (
-                <button onClick={() => handelDeleteOffer(offerId)}>
-                  Delete Offer
-                </button>
+                <button onClick={() => handleDenyOffer(offerId)}>Deny</button>
               );
             }
             break;
@@ -169,12 +134,17 @@ const OfferList = (params) => {
                   <button onClick={() => handelContingentOffer(offerId)}>
                     Make it Contingent
                   </button>
-                  <button onClick={() => handelDeleteOffer(offerId)}>
-                    Delete Offer
-                  </button>
+                  <button onClick={() => handleDenyOffer(offerId)}>Deny</button>
                 </div>
               );
             } else if (propertyStatus === 3) {
+              return (
+                <button onClick={() => handleDenyOffer(offerId)}>Deny</button>
+              );
+            }
+            break;
+          case OfferStatus.Contingent:
+            if (propertyStatus === 3) {
               return (
                 <button onClick={() => handelSold(offerId)}>
                   Mark it As Sold

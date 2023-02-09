@@ -12,6 +12,9 @@ const OfferStatusDot = ({ status }) => {
   } else if (status === 3) {
     backgroundColor = "orange";
     statusDef = "Deleted";
+  } else if (status === 5) {
+    backgroundColor = "pink";
+    statusDef = "Contingent";
   } else {
     backgroundColor = "blue";
     statusDef = "Waiting";
