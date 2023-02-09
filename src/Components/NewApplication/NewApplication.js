@@ -2,128 +2,123 @@ import React, { useRef, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import {useLocation, useNavigate, useParams} from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import axios from "axios";
-// import {useKeycloak} from "@react-keycloak/web";
-// import Api from "../../utils/api";
+import "./NewApplication.css";
+import Cookies from "js-cookie";
 
 function NewApplication() {
-    const [applicationData, setApplicationData] = useState({});
-    const formRef = useRef();
-    const {id} = useParams();
-    // const {keycloak} = useKeycloak();
-    const navigate = useNavigate();
+  const [applicationType, setApplicationType] = useState("");
+  const [creditScore, setCreditScore] = useState("");
+  const [offerDescription, setOfferDescription] = useState("");
+  const [dateOfMoving, setDateOfMoving] = useState("");
+  const [offer, setOffer] = useState("");
+  const { propId } = useParams();
 
-    const handleSubmit = (e) => {
-        // e.preventDefault();
-        // const form = formRef.current;
-        // const dataForm = {
-        //     propertyId: id,
-        //     applicationType: form["optionType"].value,
-        //     employmentInfo: form["employmentInfo"].value,
-        //     creditScore: form["creditScore"].value,
-        //     message: form["message"].value,
-        //     date: form["date"].value,
-        // };
+  const userId = Cookies.get("userId");
+  const navigate = useNavigate();
 
-        // setApplicationData(dataForm);
-        // Api.post("/api/v1/applications", dataForm,{
-        //     headers: keycloak?.token ? {authorization: `Bearer ${keycloak?.token}`} : {}
-        // }  ).then(response => {
-        //     navigate("/applications")
-        // }).catch(error => {
-        //     console.log(error)
-        // })
-        // e.target.reset();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("creditScore: " + creditScore);
+    const checkAuth = async () => {
+      const headers = {
+        Authorization: `Bearer ${Cookies.get("refreshToken")}`,
+      };
+
+      try {
+        const response = await axios.post(
+          `api/v1/users/${userId}/properties/${propId}/offers`,
+          {
+            creditScore: creditScore,
+            offerDescription: offerDescription,
+            offerAmount: offer,
+          },
+          headers
+        )
+        console.log(response.data);
+        navigate("/");
+      } catch (err) {
+        console.error(err);
+      }
     };
-    console.log(applicationData);
-    return (
-        <Container>
-            <Row>
-                <Col md={{ offset: 3, span: 5 }}>
-                    <h2 style={{ color: "purple" }} className="text-center">
-                        Submit Your Application Today
-                    </h2>
-                </Col>
-            </Row>
-            <Row className="mt-5">
-                <Col md={{ offset: 3, span: 5 }}>
-                    <Form ref={formRef} onSubmit={handleSubmit}>
-                        <Form.Group>
-                            <Form.Label>
-                                <b>Application Type</b>
-                            </Form.Label>
-                            <Form.Select
-                                name={"optionType"}
-                                aria-label="Default select example"
-                            >
-                                <option value="BUY">BUY</option>
-                                <option value="RENT">RENT</option>
-                                <option value="TOUR">TOUR</option>
-                            </Form.Select>
-                            <Form.Text className="text-muted">
-                                Did you know you can pay in installments?
-                            </Form.Text>
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>
-                                <b>Employment Info</b>
-                            </Form.Label>
-                            <Form.Control
-                                required={true}
-                                name={"employmentInfo"}
-                                type="text"
-                                placeholder="Employment info"
-                            />
-                        </Form.Group>
+    checkAuth();
+  };
 
-                        <Form.Group className="mb-3">
-                            <Form.Label>
-                                <b>Credit Score</b>
-                            </Form.Label>
-                            <Form.Control
-                                required={true}
-                                name={"creditScore"}
-                                type="number"
-                                placeholder="Credit Score"
-                            />
-                            <Form.Text className="text-muted">
-                                We'll never share your credit score with anyone else.
-                            </Form.Text>
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>
-                                <b>Message</b>
-                            </Form.Label>
-
-                            <Form.Control
-                                required={true}
-                                name={"message"}
-                                as="textarea"
-                                rows={3}
-                                placeholder="Message"
-                            />
-                        </Form.Group>
-                        <Form.Group className="mb-3">
-                            <Form.Label>
-                                <b>Date</b>
-                            </Form.Label>
-                            <Form.Control
-                                required={true}
-                                name={"date"}
-                                type="date"
-                                placeholder="Date"
-                            />
-                        </Form.Group>
-
-                        <Button variant="primary" type="submit">
-                            Submit
-                        </Button>
-                    </Form>
-                </Col>
-            </Row>
-        </Container>
-    );
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="application-type-container">
+        <p className="application-type-label">Application Type:</p>
+        <input
+          type="radio"
+          id="buy"
+          name="application-type"
+          value="buy"
+          className="application-type-input"
+          onChange={(e) => setApplicationType(e.target.value)}
+        />
+        <label htmlFor="buy" className="application-type-custom-label">
+          Buy
+        </label>
+        <input
+          type="radio"
+          id="rent"
+          name="application-type"
+          value="rent"
+          className="application-type-input"
+          onChange={(e) => setApplicationType(e.target.value)}
+        />
+        <label htmlFor="rent" className="application-type-custom-label">
+          Rent
+        </label>
+      </div>
+      <p className="selected-value">
+        Selected Application Type: {applicationType}
+      </p>
+      <div>
+        <label htmlFor="credit-score">Credit Score:</label>
+        <input
+          type="number"
+          id="credit-score"
+          className="form-input"
+          value={creditScore}
+          onChange={(e) => setCreditScore(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="offer-description">Offer Description:</label>
+        <textarea
+          id="offer-description"
+          className="form-input"
+          value={offerDescription}
+          onChange={(e) => setOfferDescription(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="date-of-moving">Date of Moving:</label>
+        <input
+          type="date"
+          id="date-of-moving"
+          className="form-input"
+          value={dateOfMoving}
+          onChange={(e) => setDateOfMoving(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="offer">Offer ($):</label>
+        <input
+          type="number"
+          id="offer"
+          className="form-input"
+          value={offer}
+          onChange={(e) => setOffer(e.target.value)}
+        />
+      </div>
+      <button type="submit" className="submit-button">
+        Submit
+      </button>
+    </form>
+  );
 }
 
 export default NewApplication;
