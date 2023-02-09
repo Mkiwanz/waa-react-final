@@ -14,10 +14,8 @@ function App() {
   const user = Cookies.get("userId");
   if (user == undefined || user == null) {
     dispatch(authActions.logout());
-    console.log("Logout");
   } else {
     dispatch(authActions.loginSuccessful());
-    console.log("login");
   }
 
   axios.defaults.baseURL = "http://localhost:8081";

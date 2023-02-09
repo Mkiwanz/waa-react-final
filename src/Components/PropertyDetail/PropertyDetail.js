@@ -5,6 +5,8 @@ import { Link, useParams } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
+import Role from "../../Resources/Roles";
 
 const SliderData = [
   {
@@ -68,6 +70,7 @@ const SliderData = [
 export const PropertyDetail = () => {
   const [property, setProperty] = useState({});
   const { id } = useParams();
+  const role = Cookies.get("role");
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
@@ -85,30 +88,32 @@ export const PropertyDetail = () => {
   const handelLike = () => {
     // Send API to add it to liked table
   };
+
   return (
     <div>
       <div>
         <ImageSlider slides={SliderData} />
       </div>
+
       <div className="property-details">
+        {role === Role.CUSTOMER ? (
+          <FavoriteBorderIcon
+            onClick={handelLike}
+            style={{ fontSize: 50 }}
+          ></FavoriteBorderIcon>
+        ) : null}
         <h1>Price: ${property.price}</h1>
         <h2>Property Details</h2>
         <ul>
           <li> {property.address}</li>
           <p>{property.details}</p>
         </ul>
-        <FavoriteBorderIcon onClick={handelLike}></FavoriteBorderIcon>
-        {isAuthenticated ? (
-          <Link
-            to={`/newApplication/${id}`}
-            style={{ textDecoration: "none" }}
-          >
-            newApplication
-          </Link>
-        ) : (
-          <Link to="/login">
+        {isAuthenticated && role === Role.CUSTOMER ? (
+          <Link to={`/newApplication/${id}`} style={{ textDecoration: "none" }}>
             <button>Apply Now</button>
           </Link>
+        ) : (
+          <Link to="/login"></Link>
         )}
       </div>
     </div>

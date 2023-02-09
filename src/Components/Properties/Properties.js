@@ -28,7 +28,6 @@ function Properties() {
         console.error(err);
       }
     };
-    console.log("Properties");
     checkAuth();
   }, []);
 
