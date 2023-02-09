@@ -27,7 +27,6 @@ const Filter = () => {
   };
 
   useEffect(() => {
-    console.log(filter);
     const checkAuth = async () => {
       const headers = {
         Authorization: `Bearer ${Cookies.get("accessToken")}`,
@@ -47,7 +46,6 @@ const Filter = () => {
           headers
         );
         setPropertiesData(response.data);
-        console.log(response.data);
       } catch (err) {
         console.error(err);
       }

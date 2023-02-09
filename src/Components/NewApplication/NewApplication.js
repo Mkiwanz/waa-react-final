@@ -13,6 +13,7 @@ function NewApplication() {
   const [offerDescription, setOfferDescription] = useState("");
   const [dateOfMoving, setDateOfMoving] = useState("");
   const [offer, setOffer] = useState("");
+  const [email, setEmail] = useState("");
   const { propId } = useParams();
 
   const userId = Cookies.get("userId");
@@ -20,7 +21,6 @@ function NewApplication() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("creditScore: " + creditScore);
     const checkAuth = async () => {
       const headers = {
         Authorization: `Bearer ${Cookies.get("refreshToken")}`,
@@ -30,13 +30,14 @@ function NewApplication() {
         const response = await axios.post(
           `api/v1/users/${userId}/properties/${propId}/offers`,
           {
+            offerType:applicationType,
             creditScore: creditScore,
             offerDescription: offerDescription,
             offerAmount: offer,
+            status: 1,
           },
           headers
         )
-        console.log(response.data);
         navigate("/");
       } catch (err) {
         console.error(err);
@@ -72,9 +73,6 @@ function NewApplication() {
           Rent
         </label>
       </div>
-      <p className="selected-value">
-        Selected Application Type: {applicationType}
-      </p>
       <div>
         <label htmlFor="credit-score">Credit Score:</label>
         <input
@@ -83,6 +81,16 @@ function NewApplication() {
           className="form-input"
           value={creditScore}
           onChange={(e) => setCreditScore(e.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          className="form-input"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div>

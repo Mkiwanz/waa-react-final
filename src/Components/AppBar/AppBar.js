@@ -16,22 +16,35 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./AppBar.css";
 import ButtonLogin from "../Button/ButtonLogin";
+import Cookies from "js-cookie";
+import Role from "../../Resources/Roles";
 
 const pages = ["Buy/Rent", "Contact Us"];
-const settings = [
-  "Account",
-  "Liked Properties",
-  "Users List",
-  "Applications",
-  "Offers List",
-  "Logout",
-];
+
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const navigate = useNavigate();
+  const role = Cookies.get("role");
+  let settings = ["Account"];
+  if(role === Role.CUSTOMER)
+  {
+    settings = [
+      "Account",
+      "Liked Properties",
+      "Offers List",
+      "Logout",
+    ];
+  }else if(role === Role.OWNER){
+    settings = [
+      "Account",
+      "My Properties",
+      "Offers List",
+      "Logout",
+    ];
+  }
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -49,13 +62,13 @@ function ResponsiveAppBar() {
       case "users_list":
         console.log("go to users_list");
         break;
-      case "applications":
-        console.log("go to applications");
-        break;
       case "offers_list":
-        navigate("/offers")
-      break;
+        navigate("/offers");
+        break;
     }
+  };
+  const handelAddNewProp = (events) => {
+    console.log("handelAddNewProp");
   };
 
   return (
@@ -136,16 +149,16 @@ function ResponsiveAppBar() {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {role == Role.OWNER ? (
               <Button
-                key={page}
-                // onClick={handleCloseNavMenu}
+                onClick={handelAddNewProp}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                Add New Property
               </Button>
-            ))}
+            ) : null}
           </Box>
+
           {isAuthenticated ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">

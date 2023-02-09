@@ -34,6 +34,7 @@ const Login = () => {
     Cookies.set('refreshToken', result.payload.refreshToken, { expires: 7 });
     Cookies.set("userId", result.payload.userId);
     Cookies.set("userName", result.payload.userName);
+    Cookies.set("role", result.payload.role);
     navigate("/");
   };
 
