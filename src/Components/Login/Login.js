@@ -17,7 +17,6 @@ const Login = () => {
       "http://localhost:8081/api/v1/authenticate",
       userCredentials
     );
-    console.log(res.data);
     return res.data;
   });
 

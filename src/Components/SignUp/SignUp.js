@@ -28,7 +28,6 @@ const SignUp = () => {
                 if (form['user'].value == 'owner') {
                     data['user'] = 'owner';
                 }
-                console.log(data)
                 axios.post("http://localhost:8080/api/v1/user", data)
                     .then(data => {
                         navigate('/');

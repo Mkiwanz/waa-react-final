@@ -1,12 +1,13 @@
 import ImageSlider from "../ImageSlider/ImageSlide";
 import "./propertyDetail.css";
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Route, Link, useParams } from "react-router-dom";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import Role from "../../Resources/Roles";
+import OfferList from "../OffersList/OffersList";
 
 const SliderData = [
   {
@@ -67,13 +68,12 @@ const SliderData = [
 //   );
 // };
 
-export const PropertyDetail = () => {
+export const PropertyDetail = (props) => {
   const [property, setProperty] = useState({});
   const { id } = useParams();
   const role = Cookies.get("role");
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-
   useEffect(() => {
     axios
       .get(`http://localhost:8081/api/v1/properties/${id}`)
@@ -108,6 +108,13 @@ export const PropertyDetail = () => {
           <li> {property.address}</li>
           <p>{property.details}</p>
         </ul>
+
+        {role === Role.OWNER && property.offers != null ? (
+          <div>
+            <h4>Offers List</h4>
+            <OfferList data={property.offers} propertyStatus = {property.status} propertyId = {property.id} />
+          </div>
+        ) : null}
         {isAuthenticated && role === Role.CUSTOMER ? (
           <Link to={`/newApplication/${id}`} style={{ textDecoration: "none" }}>
             <button>Apply Now</button>

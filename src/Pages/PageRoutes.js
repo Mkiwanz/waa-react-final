@@ -6,6 +6,7 @@ import SignUp from "../Components/SignUp/SignUp";
 import NewApplication from "../Components/NewApplication/NewApplication";
 import Login from "../Components/Login/Login";
 import OfferList from "../Components/OffersList/OffersList";
+import OfferDetails from "../Components/OfferDetails/OfferDetails";
 
 
 const PageRoutes = () => {
@@ -19,6 +20,7 @@ const PageRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/newApplication/:propId" element={<NewApplication />} />
         <Route path="/offers" element={<OfferList />} />
+        <Route path="/offerDetails/:id" element={<OfferDetails />} />
       </Routes>
     </BrowserRouter>
   );

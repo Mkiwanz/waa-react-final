@@ -6,11 +6,14 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import houseImage from "../../Resources/Images/background.jpg";
 import StatusDot from "../StatusDot/StatusDot";
+import Cookies from "js-cookie";
+import Role from "../../Resources/Roles";
+import OfferList from "../OffersList/OffersList";
 
 function Property(props) {
-
+  const role = Cookies.get("role");
   return (
-    <Card sx={{ maxWidth: 345 }} style={{borderRadius: 15}}>
+    <Card sx={{ maxWidth: 345 }} style={{ borderRadius: 15 }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -25,12 +28,12 @@ function Property(props) {
           alt="Kiwan"
         />
         <CardContent>
-        <StatusDot status={props.house.status} />
+          <StatusDot status={props.house.status} />
           <Typography gutterBottom variant="h5" component="div">
-          ${props.house.price}
+            ${props.house.price}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-          {props.house.details}
+            {props.house.details}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {props.house.address}
