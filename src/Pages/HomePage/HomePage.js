@@ -15,8 +15,6 @@ const HomePage = () => {
       </div>
       <br />
       <br />
-      <br />
-      <br />
       <div className="homeBody">
         <Properties />
       </div>

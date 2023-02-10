@@ -40,20 +40,32 @@ function Properties() {
   }, []);
 
   return (
-    <Grid container spacing={5}>
-      {propertiesData.map((house) => {
-        return (
-          <Grid item md={4} key={house.id}>
-            <Link
-              to={`/properties/${house.id}`}
-              style={{ textDecoration: "none" }}
-            >
-              <Property house={house} />
-            </Link>
-          </Grid>
-        );
-      })}
-    </Grid>
+    <div style={{textAlign: "center"}}>
+      {role === Role.OWNER ? (
+        <h2>My Properties</h2>
+      ) : (
+        <h2>All Available Properties</h2>
+      )}
+      <br />
+      <br />
+      <Grid container spacing={5}>
+        {propertiesData.map((house) => {
+          return (
+            <Grid item md={4} key={house.id}>
+              <Link
+                to={`/properties/${house.id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <Property house={house} />
+              </Link>
+            </Grid>
+          );
+        })}
+      </Grid>
+      <br />
+      <br />
+      <br />
+    </div>
   );
 }
 

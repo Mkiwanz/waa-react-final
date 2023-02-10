@@ -117,13 +117,16 @@ export const PropertyDetail = (props) => {
 
         {role === Role.OWNER && property.offers != null ? (
           <div>
-            <h4>Offers List</h4>
+            <h2>Offers List</h2>
             <OfferList
               data={property.offers}
               setRefreshProperty={setRefreshProperty}
+              refreshProperty={refreshProperty}
               propertyStatus={property.status}
               propertyId={property.id}
             />
+            <br></br>
+            <br></br>
           </div>
         ) : null}
         {isAuthenticated && role === Role.CUSTOMER ? (
