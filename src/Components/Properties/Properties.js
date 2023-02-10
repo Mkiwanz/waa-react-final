@@ -17,6 +17,7 @@ function Properties() {
       try {
         const response = await axios.get("api/v1/properties");
         setPropertiesData(response.data);
+        console.log(response.data);
       } catch (err) {
         console.error(err);
       }

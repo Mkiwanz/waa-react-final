@@ -158,7 +158,7 @@ const OfferList = (params) => {
   };
 
   return (
-    <Card sx={{ maxWidth: 500 }} style={{ borderRadius: 15 }}>
+    <Card sx={{ maxWidth: 400 }} style={{ borderRadius: 15 }}>
       <CardActionArea>
         <CardContent>
           <OfferStatusDot status={offer.status} />

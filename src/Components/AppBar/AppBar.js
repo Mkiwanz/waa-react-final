@@ -66,6 +66,9 @@ function ResponsiveAppBar() {
   const handelAddNewProp = (events) => {
     navigate("/newProperty");
   };
+  const handelHomeButton = (events) => {
+    navigate("/");
+  };
 
   return (
     <AppBar position="static">
@@ -76,7 +79,6 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -154,6 +156,14 @@ function ResponsiveAppBar() {
               </Button>
             ) : null}
           </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            <Button
+              onClick={handelHomeButton}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Home
+            </Button>
+          </Box>
 
           {isAuthenticated ? (
             <Box sx={{ flexGrow: 0 }}>
@@ -195,11 +205,9 @@ function ResponsiveAppBar() {
           ) : (
             <div>
               <Link to="/login">
-                {/* <button>Login</button> */}
                 <ButtonLogin text="Login" type="login" />
               </Link>
               <Link to="/signup">
-                {/* <button>SignUp</button> */}
                 <ButtonLogin text="Sign up" type="signup" />
               </Link>
             </div>

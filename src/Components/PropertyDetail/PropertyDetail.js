@@ -80,7 +80,7 @@ export const PropertyDetail = () => {
     const getCustomerProperties = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8081/api/v1/properties/${id}`
+          `api/v1/properties/${id}`
         );
         setProperty(response.data);
         console.log(response.data);
@@ -110,7 +110,7 @@ export const PropertyDetail = () => {
         </ul>
 
         {role === Role.OWNER && property.offers != null ? (
-          <div>
+          <div className="offersList">
             <h2>Offers List</h2>
             <OfferList
               data={property.offers}

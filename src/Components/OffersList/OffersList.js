@@ -37,10 +37,10 @@ const OfferList = (params) => {
   }, [refresh]);
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={8}>
       {offers ? (
         offers.map((offer) => (
-          <Grid item md={6} key={offer.id}>
+          <Grid item md={3} key={offer.id}>
             <Offer
               offer={offer}
               propertyStatus={params.propertyStatus}

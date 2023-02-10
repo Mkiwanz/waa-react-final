@@ -26,7 +26,7 @@ const Filter = () => {
       try {
         let params = {
           propertyType: filter.propertyType,
-          price: filter.priceRange,
+          priceRange: filter.priceRange,
           rooms: filter.bedrooms,
           bathrooms: filter.bathrooms,
           zip: filter.location,
@@ -62,7 +62,6 @@ const Filter = () => {
           <option value="">Select a property type</option>
           <option value="house">House</option>
           <option value="apartment">Apartment</option>
-          <option value="condo">Condo</option>
         </select>
       </label>
       <label className="filter-label">
@@ -91,7 +90,8 @@ const Filter = () => {
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
-          <option value="4+">4+</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
         </select>
       </label>
       <label className="filter-label">
@@ -106,7 +106,8 @@ const Filter = () => {
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
-          <option value="4+">4+</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
         </select>
       </label>
       <label className="filter-label">

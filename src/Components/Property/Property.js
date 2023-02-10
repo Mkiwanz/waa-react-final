@@ -25,8 +25,14 @@ function Property(props) {
         />
         <CardContent>
           <StatusDot status={props.house.status} />
+
           <Typography gutterBottom variant="h5" component="div">
             ${props.house.price}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {props.house.propertyType
+              ? props.house.propertyType.toUpperCase()
+              : null}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {props.house.details}
