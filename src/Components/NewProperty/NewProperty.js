@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import "./NewProperty.css";
-
+import axios from "axios";
 function NewProperty() {
     const [newPropertyData, setNewPropertyData] = useState({});
     const pForm = useRef();
@@ -14,17 +14,18 @@ function NewProperty() {
                 state: form["state"].value,
                 zipcode: form["zipcode"].value,
             },
-            roomNumber: form["roomNumber"].value,
-            bathNumber: form["bathNumber"].value,
-            propertyStatus: form["propertyStatus"].value,
-            area: form["area"].value,
-            price: form["price"].value,
+            roomNumber: parseInt(form["roomNumber"].value),
+            bathNumber: parseInt(form["bathNumber"].value),
+            propertyStatus: parseInt(form["propertyStatus"].value),
+            area: parseInt(form["area"].value),
+            price: parseFloat(form["price"].value),
             image: form["image"].value,
             owner: 'owner',//From the query string or parameters(Params) 
         };
         // image name only without the full path
         //Within our project, create a folder and concatenate the new path with the name of the image
-        data['image'].subString(indexOf('/'), data['image'].length);
+        data['image'] = data['image'].substring(data['image'].lastIndexOf('\\') + 1, data['image'].length)
+        alert(data['image']);
         //save the new property data
         axios.post("http://localhost:8080/api/v1/user", data)
             .then(data => {
@@ -36,7 +37,6 @@ function NewProperty() {
         // alert('street=' + data.address['street'] + ', city=' + data.address['city'] + ', state=' + data.address['state']
         //     + ', zipcode=' + data.address['zipcode'] + ', room#=' + data['roomNumber'] + ', propertyStatus=' + data['propertyStatus']
         //     + ', bathroom#=' + data['bathNumber'] + ', area=' + data['area'] + ', price=' + data['price']);
-        // alert(data['image'].subString(indexOf('/'), data['image'].length));
     };
 
     return (
