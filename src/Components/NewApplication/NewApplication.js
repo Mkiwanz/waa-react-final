@@ -27,7 +27,7 @@ function NewApplication() {
             creditScore: creditScore,
             offerDescription: offerDescription,
             offerAmount: offer,
-            status: 1,
+            status: 4,
           }
         );
         navigate("/");

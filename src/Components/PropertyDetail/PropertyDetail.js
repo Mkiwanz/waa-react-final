@@ -122,7 +122,9 @@ export const PropertyDetail = (props) => {
             <br></br>
           </div>
         ) : null}
-        {isAuthenticated && role === Role.CUSTOMER ? (
+        {isAuthenticated &&
+        role === Role.CUSTOMER &&
+        (property.status != 3 || property.status != 4) ? (
           <Link to={`/newApplication/${id}`} style={{ textDecoration: "none" }}>
             <button>Apply Now</button>
           </Link>

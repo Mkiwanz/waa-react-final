@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import PageRoutes from "./Pages/PageRoutes";
 import axios from "axios";
@@ -19,12 +18,10 @@ function App() {
     dispatch(authActions.loginSuccessful());
   }
 
-  const axiosInstance = axios.create({
-    baseURL: "http://localhost:8081",
-  });
-  axiosInstance.defaults.headers.common[
-    "Authorization"
-  ] = `Bearer ${accessToken}`;
+ 
+  axios.defaults.baseURL = "http://localhost:8081";
+
+  axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
   return (
     <PropertiesContext.Provider value={[propertiesData, setPropertiesData]}>
