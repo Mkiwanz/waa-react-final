@@ -1,4 +1,3 @@
-import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./OfferDetails.css";
@@ -10,11 +9,8 @@ const OfferDetails = () => {
   const { id } = useParams();
   useEffect(() => {
     const fetchCustomerOffers = async () => {
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      };
       try {
-        const response = await axios.get(`api/v1/offers/${id}`, headers);
+        const response = await axios.get(`api/v1/offers/${id}`);
         console.log(response.data);
         setOffer(response.data);
       } catch (error) {
@@ -23,12 +19,12 @@ const OfferDetails = () => {
     };
     fetchCustomerOffers();
   }, []);
-  
+
   return (
     <div className="offer-details">
       <h2>Offer Details</h2>
       {/* <p>Offer Status: {Offer.status}</p> */}
-      <OfferStatusDot status={Offer.status}/>
+      <OfferStatusDot status={Offer.status} />
       <p>Offer Description: {Offer.offerDescription}</p>
       <p>Offer Amount: {Offer.offerAmount}</p>
       <p>Credit Score: {Offer.creditScore}</p>

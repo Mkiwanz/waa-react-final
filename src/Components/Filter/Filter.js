@@ -1,15 +1,10 @@
-// Filter.js
 import React, { useContext, useEffect, useState } from "react";
 import "./Filter.css";
 import axios from "axios";
-import Cookies from "js-cookie";
 import { PropertiesContext } from "../../App";
 
 const Filter = () => {
-
-  const [propertiesData, setPropertiesData] = useContext(
-    PropertiesContext
-  );
+  const [propertiesData, setPropertiesData] = useContext(PropertiesContext);
 
   const [filter, setFilter] = useState({
     propertyType: "",
@@ -28,9 +23,6 @@ const Filter = () => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      };
       try {
         let params = {
           propertyType: filter.propertyType,
@@ -40,11 +32,9 @@ const Filter = () => {
           zip: filter.location,
         };
 
-        const response = await axios.get(
-          "api/v1/properties/filter",
-          { params },
-          headers
-        );
+        const response = await axios.get("api/v1/properties/filter", {
+          params,
+        });
         setPropertiesData(response.data);
       } catch (err) {
         console.error(err);

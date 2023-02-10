@@ -6,12 +6,8 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import houseImage from "../../Resources/Images/background.jpg";
 import StatusDot from "../StatusDot/StatusDot";
-import Cookies from "js-cookie";
-import Role from "../../Resources/Roles";
-import OfferList from "../OffersList/OffersList";
 
 function Property(props) {
-  const role = Cookies.get("role");
   return (
     <Card sx={{ maxWidth: 345 }} style={{ borderRadius: 15 }}>
       <CardActionArea>
@@ -19,9 +15,9 @@ function Property(props) {
           component="img"
           height="140"
           image={
-            props.house.photos == null ||
-            props.house.photos == undefined ||
-            props.house.photos.length == 0
+            props.house.photos === null ||
+            props.house.photos === undefined ||
+            props.house.photos.length === 0
               ? houseImage
               : props.house.photos[0]
           }

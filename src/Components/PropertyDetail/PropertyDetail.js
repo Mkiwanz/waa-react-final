@@ -1,8 +1,7 @@
 import ImageSlider from "../ImageSlider/ImageSlide";
 import "./propertyDetail.css";
 import React, { useState, useEffect } from "react";
-import { Route, Link, useParams } from "react-router-dom";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
@@ -92,25 +91,6 @@ export const PropertyDetail = (props) => {
     getCustomerProperties();
   }, [refreshProperty]);
 
-  const handelLike = () => {
-    console.log("Like click");
-    const likeProp = async () => {
-      try {
-        const response = await axios.post(
-          `http://localhost:8081/api/v1/likes`,
-          {
-            userId: userId,
-            propertyId: id,
-          }
-        );
-        setProperty(response.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    likeProp();
-  };
-
   return (
     <div>
       <div>
@@ -119,10 +99,6 @@ export const PropertyDetail = (props) => {
 
       <div className="property-details">
         {role === Role.CUSTOMER ? (
-          // <FavoriteBorderIcon
-          //   onClick={handelLike}
-          //   style={{ fontSize: 50 }}
-          // ></FavoriteBorderIcon>
           <LikeButton userId={userId} propertyId={id} />
         ) : null}
         <h1>Price: ${property.price}</h1>

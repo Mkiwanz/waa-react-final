@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
 import Role from "../../Resources/Roles";
@@ -6,14 +6,10 @@ import OfferStatusDot from "../OfferStatusDot/OfferStatusDot";
 import OfferStatus from "../../Resources/OfferStatus";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
 const OfferList = (params) => {
-  //   const [offers, setOffers] = useState([]);
-  //   const [refresh, setRefresh] = useState(false);
-  //   const userId = Cookies.get("userId");
   const role = Cookies.get("role");
   let propertyStatus = params.propertyStatus;
   let propertyId = params.propertyId;
@@ -23,14 +19,8 @@ const OfferList = (params) => {
 
   const handleAcceptOffer = (offerId) => {
     const acceptOffer = async () => {
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      };
       try {
-        const response = await axios.put(
-          `api/v1/offers/${offerId}/approve`,
-          headers
-        );
+        const response = await axios.put(`api/v1/offers/${offerId}/approve`);
         setRefresh(!refresh);
       } catch (err) {
         console.error(err);
@@ -41,14 +31,8 @@ const OfferList = (params) => {
 
   const handleDenyOffer = (offerId) => {
     const denyOffer = async () => {
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      };
       try {
-        const response = await axios.put(
-          `api/v1/offers/${offerId}/reject`,
-          headers
-        );
+        const response = await axios.put(`api/v1/offers/${offerId}/reject`);
         setRefresh(!refresh);
       } catch (err) {
         console.error(err);
@@ -59,14 +43,8 @@ const OfferList = (params) => {
 
   const handelDeleteOffer = (offerId) => {
     const deleteOffer = async () => {
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      };
       try {
-        const response = await axios.delete(
-          `api/v1/offers/${offerId}`,
-          headers
-        );
+        const response = await axios.delete(`api/v1/offers/${offerId}`);
         setRefresh(!refresh);
       } catch (err) {
         console.error(err);
@@ -77,14 +55,8 @@ const OfferList = (params) => {
 
   const handelContingentOffer = (offerId) => {
     const contingentOffer = async () => {
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      };
       try {
-        const response = await axios.put(
-          `api/v1/offers/${offerId}/contingent`,
-          headers
-        );
+        const response = await axios.put(`api/v1/offers/${offerId}/contingent`);
         setRefresh(!refresh);
       } catch (err) {
         console.error(err);
@@ -95,13 +67,9 @@ const OfferList = (params) => {
 
   const handelSold = (offerId) => {
     const soldOffer = async () => {
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      };
       try {
         const response = await axios.put(
-          `api/v1/properties/${propertyId}/sold`,
-          headers
+          `api/v1/properties/${propertyId}/sold`
         );
         setRefresh(!refresh);
       } catch (err) {
@@ -111,89 +79,82 @@ const OfferList = (params) => {
     soldOffer();
   };
 
-
   const ButtonsToShow = (offerId, status) => {
-      switch (role) {
-        case Role.OWNER:
-          switch (status) {
-            case OfferStatus.Waiting:
-              if (propertyStatus === 1) {
-                return (
-                  <div>
-                    <button onClick={() => handleAcceptOffer(offerId)}>
-                      Accept
-                    </button>
-                    <button onClick={() => handleDenyOffer(offerId)}>
-                      Deny
-                    </button>
-                  </div>
-                );
-              } else if (propertyStatus === 2) {
-                return (
-                  <div>
-                    <button onClick={() => handleAcceptOffer(offerId)}>
-                      Accept
-                    </button>
-                    <button onClick={() => handleDenyOffer(offerId)}>
-                      Deny
-                    </button>
-                  </div>
-                );
-              } else if (propertyStatus === 3) {
-                return (
-                  <button onClick={() => handleDenyOffer(offerId)}>Deny</button>
-                );
-              }
-              break;
-            case OfferStatus.Approved:
-              if (propertyStatus === 2) {
-                return (
-                  <div>
-                    <button onClick={() => handelContingentOffer(offerId)}>
-                      Make it Contingent
-                    </button>
-                    <button onClick={() => handleDenyOffer(offerId)}>
-                      Deny
-                    </button>
-                  </div>
-                );
-              } else if (propertyStatus === 3) {
-                return (
-                  <button onClick={() => handleDenyOffer(offerId)}>Deny</button>
-                );
-              }
-              break;
-            case OfferStatus.Contingent:
-              if (propertyStatus === 3) {
-                return (
-                  <button onClick={() => handelSold(offerId)}>
-                    Mark it As Sold
-                  </button>
-                );
-              }
-              break;
-            case OfferStatus.Rejected:
+    switch (role) {
+      case Role.OWNER:
+        switch (status) {
+          case OfferStatus.Waiting:
+            if (propertyStatus === 1) {
               return (
-                <button onClick={() => handelDeleteOffer(offerId)}>
-                  Delete Offer
+                <div>
+                  <button onClick={() => handleAcceptOffer(offerId)}>
+                    Accept
+                  </button>
+                  <button onClick={() => handleDenyOffer(offerId)}>Deny</button>
+                </div>
+              );
+            } else if (propertyStatus === 2) {
+              return (
+                <div>
+                  <button onClick={() => handleAcceptOffer(offerId)}>
+                    Accept
+                  </button>
+                  <button onClick={() => handleDenyOffer(offerId)}>Deny</button>
+                </div>
+              );
+            } else if (propertyStatus === 3) {
+              return (
+                <button onClick={() => handleDenyOffer(offerId)}>Deny</button>
+              );
+            }
+            break;
+          case OfferStatus.Approved:
+            if (propertyStatus === 2) {
+              return (
+                <div>
+                  <button onClick={() => handelContingentOffer(offerId)}>
+                    Make it Contingent
+                  </button>
+                  <button onClick={() => handleDenyOffer(offerId)}>Deny</button>
+                </div>
+              );
+            } else if (propertyStatus === 3) {
+              return (
+                <button onClick={() => handleDenyOffer(offerId)}>Deny</button>
+              );
+            }
+            break;
+          case OfferStatus.Contingent:
+            if (propertyStatus === 3) {
+              return (
+                <button onClick={() => handelSold(offerId)}>
+                  Mark it As Sold
                 </button>
               );
-              break;
-          }
-          break;
-        case Role.CUSTOMER:
-          if (propertyStatus != 3) {
+            }
+            break;
+          case OfferStatus.Rejected:
             return (
               <button onClick={() => handelDeleteOffer(offerId)}>
                 Delete Offer
               </button>
             );
-          }
-          break;
-          
-        default:
-          break;
-      }
+            break;
+        }
+        break;
+      case Role.CUSTOMER:
+        if (propertyStatus != 3) {
+          return (
+            <button onClick={() => handelDeleteOffer(offerId)}>
+              Delete Offer
+            </button>
+          );
+        }
+        break;
+
+      default:
+        break;
+    }
   };
 
   return (

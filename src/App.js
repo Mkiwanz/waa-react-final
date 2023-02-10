@@ -12,13 +12,20 @@ function App() {
 
   const dispatch = useDispatch();
   const user = Cookies.get("userId");
+  const accessToken = Cookies.get("accessToken");
   if (user == undefined || user == null) {
     dispatch(authActions.logout());
   } else {
     dispatch(authActions.loginSuccessful());
   }
 
-  axios.defaults.baseURL = "http://localhost:8081";
+  const axiosInstance = axios.create({
+    baseURL: "http://localhost:8081",
+  });
+  axiosInstance.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${accessToken}`;
+
   return (
     <PropertiesContext.Provider value={[propertiesData, setPropertiesData]}>
       <PageRoutes />

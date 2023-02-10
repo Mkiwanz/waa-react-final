@@ -12,14 +12,8 @@ function ButtonsToShow({ offerId, status, propertyStatus, propertyId }) {
 
   const handleAcceptOffer = (offerId) => {
     const acceptOffer = async () => {
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      };
       try {
-        const response = await axios.put(
-          `api/v1/offers/${offerId}/approve`,
-          headers
-        );
+        const response = await axios.put(`api/v1/offers/${offerId}/approve`);
         setRefresh(true);
       } catch (err) {
         console.error(err);
@@ -30,14 +24,8 @@ function ButtonsToShow({ offerId, status, propertyStatus, propertyId }) {
 
   const handleDenyOffer = (offerId) => {
     const denyOffer = async () => {
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      };
       try {
-        const response = await axios.put(
-          `api/v1/offers/${offerId}/reject`,
-          headers
-        );
+        const response = await axios.put(`api/v1/offers/${offerId}/reject`);
         setRefresh(true);
       } catch (err) {
         console.error(err);
@@ -48,14 +36,8 @@ function ButtonsToShow({ offerId, status, propertyStatus, propertyId }) {
 
   const handelDeleteOffer = (offerId) => {
     const deleteOffer = async () => {
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      };
       try {
-        const response = await axios.delete(
-          `api/v1/offers/${offerId}`,
-          headers
-        );
+        const response = await axios.delete(`api/v1/offers/${offerId}`);
         setRefresh(true);
       } catch (err) {
         console.error(err);
@@ -66,14 +48,8 @@ function ButtonsToShow({ offerId, status, propertyStatus, propertyId }) {
 
   const handelContingentOffer = (offerId) => {
     const contingentOffer = async () => {
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      };
       try {
-        const response = await axios.put(
-          `api/v1/offers/${offerId}/contingent`,
-          headers
-        );
+        const response = await axios.put(`api/v1/offers/${offerId}/contingent`);
         setRefresh(true);
       } catch (err) {
         console.error(err);
@@ -84,13 +60,9 @@ function ButtonsToShow({ offerId, status, propertyStatus, propertyId }) {
 
   const handelSold = (offerId) => {
     const soldOffer = async () => {
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      };
       try {
         const response = await axios.put(
-          `api/v1/properties/${propertyId}/sold`,
-          headers
+          `api/v1/properties/${propertyId}/sold`
         );
         setRefresh(true);
       } catch (err) {

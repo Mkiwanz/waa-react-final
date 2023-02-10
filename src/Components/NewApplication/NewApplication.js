@@ -1,8 +1,5 @@
-import React, { useRef, useState } from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import { useLocation, useNavigate, useParams } from "react-router";
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 import "./NewApplication.css";
 import Cookies from "js-cookie";
@@ -22,22 +19,17 @@ function NewApplication() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const checkAuth = async () => {
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("refreshToken")}`,
-      };
-
       try {
         const response = await axios.post(
           `api/v1/users/${userId}/properties/${propId}/offers`,
           {
-            offerType:applicationType,
+            offerType: applicationType,
             creditScore: creditScore,
             offerDescription: offerDescription,
             offerAmount: offer,
             status: 1,
-          },
-          headers
-        )
+          }
+        );
         navigate("/");
       } catch (err) {
         console.error(err);

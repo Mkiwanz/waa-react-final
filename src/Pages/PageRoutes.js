@@ -1,4 +1,4 @@
-import { Route, Routes,BrowserRouter ,Navigate } from "react-router-dom";
+import { Route, Routes,BrowserRouter  } from "react-router-dom";
 import HomePage from "./HomePage/HomePage";
 import ResponsiveAppBar from "../Components/AppBar/AppBar";
 import { PropertyDetail } from "../Components/PropertyDetail/PropertyDetail";

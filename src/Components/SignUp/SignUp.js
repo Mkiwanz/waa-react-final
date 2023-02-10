@@ -10,7 +10,6 @@ const SignUp = () => {
     const [passwordState, setPasswordState] = useState('');
     const [confirmPasswordState, setConfirmPasswordState] = useState('');
     const [phoneState, setPhoneState] = useState('');
-    const [userState, setUserState] = useState('');
     function submitHandler(e) {
         const form = userFrom.current;
         e.preventDefault();
@@ -25,7 +24,7 @@ const SignUp = () => {
                     phone: form['phone'].value,
                     user: 'customer'
                 }
-                if (form['user'].value == 'owner') {
+                if (form['user'].value === 'owner') {
                     data['user'] = 'owner';
                 }
                 axios.post("http://localhost:8080/api/v1/user", data)

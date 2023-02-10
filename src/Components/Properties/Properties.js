@@ -14,9 +14,6 @@ function Properties() {
 
   useEffect(() => {
     const getCustomerProperties = async () => {
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      };
       try {
         const response = await axios.get("api/v1/properties");
         setPropertiesData(response.data);
@@ -25,9 +22,6 @@ function Properties() {
       }
     };
     const getOwnerProperties = async () => {
-      const headers = {
-        Authorization: `Bearer ${Cookies.get("accessToken")}`,
-      };
       try {
         const response = await axios.get(`api/v1/users/${userId}/properties`);
         setPropertiesData(response.data);
@@ -40,7 +34,7 @@ function Properties() {
   }, []);
 
   return (
-    <div style={{textAlign: "center"}}>
+    <div style={{ textAlign: "center" }}>
       {role === Role.OWNER ? (
         <h2>My Properties</h2>
       ) : (
