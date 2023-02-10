@@ -25,7 +25,6 @@ function NewProperty() {
         // image name only without the full path
         //Within our project, create a folder and concatenate the new path with the name of the image
         data['image'] = data['image'].substring(data['image'].lastIndexOf('\\') + 1, data['image'].length)
-        alert(data['image']);
         //save the new property data
         axios.post("http://localhost:8080/api/v1/user", data)
             .then(data => {
