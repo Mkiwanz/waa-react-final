@@ -7,6 +7,7 @@ import NewApplication from "../Components/NewApplication/NewApplication";
 import Login from "../Components/Login/Login";
 import OfferList from "../Components/OffersList/OffersList";
 import OfferDetails from "../Components/OfferDetails/OfferDetails";
+import NewProperty from "../Components/NewProperty/NewProperty";
 
 
 const PageRoutes = () => {
@@ -21,6 +22,7 @@ const PageRoutes = () => {
         <Route path="/newApplication/:propId" element={<NewApplication />} />
         <Route path="/offers" element={<OfferList />} />
         <Route path="/offerDetails/:id" element={<OfferDetails />} />
+        <Route path="/newProperty" element={<NewProperty />} />
       </Routes>
     </BrowserRouter>
   );

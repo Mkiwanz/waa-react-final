@@ -70,20 +70,26 @@ const SliderData = [
 
 export const PropertyDetail = (props) => {
   const [property, setProperty] = useState({});
+  const [refreshProperty, setRefreshProperty] = useState(false);
   const { id } = useParams();
   const role = Cookies.get("role");
-
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:8081/api/v1/properties/${id}`)
-      .then((response) => {
+    const getCustomerProperties = async () => {
+      console.log("Refresh PropertyDetail");
+      try {
+        const response = await axios.get(
+          `http://localhost:8081/api/v1/properties/${id}`
+        );
         setProperty(response.data);
-      })
-      .catch((err) => {
-        console.error(err.message);
-      });
-  }, []);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getCustomerProperties();
+  }, [refreshProperty]);
 
   const handelLike = () => {
     // Send API to add it to liked table
@@ -112,7 +118,12 @@ export const PropertyDetail = (props) => {
         {role === Role.OWNER && property.offers != null ? (
           <div>
             <h4>Offers List</h4>
-            <OfferList data={property.offers} propertyStatus = {property.status} propertyId = {property.id} />
+            <OfferList
+              data={property.offers}
+              setRefreshProperty={setRefreshProperty}
+              propertyStatus={property.status}
+              propertyId={property.id}
+            />
           </div>
         ) : null}
         {isAuthenticated && role === Role.CUSTOMER ? (

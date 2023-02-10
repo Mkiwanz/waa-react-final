@@ -64,7 +64,7 @@ function ResponsiveAppBar() {
     }
   };
   const handelAddNewProp = (events) => {
-    console.log("handelAddNewProp");
+    navigate("/newProperty");
   };
 
   return (
