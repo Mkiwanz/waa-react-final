@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import Role from "../../Resources/Roles";
 import OfferList from "../OffersList/OffersList";
+import LikeButton from "../LikeButton";
 
 const SliderData = [
   {
@@ -73,11 +74,11 @@ export const PropertyDetail = (props) => {
   const [refreshProperty, setRefreshProperty] = useState(false);
   const { id } = useParams();
   const role = Cookies.get("role");
+  const userId = Cookies.get("userId");
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
     const getCustomerProperties = async () => {
-      console.log("Refresh PropertyDetail");
       try {
         const response = await axios.get(
           `http://localhost:8081/api/v1/properties/${id}`
@@ -92,7 +93,22 @@ export const PropertyDetail = (props) => {
   }, [refreshProperty]);
 
   const handelLike = () => {
-    // Send API to add it to liked table
+    console.log("Like click");
+    const likeProp = async () => {
+      try {
+        const response = await axios.post(
+          `http://localhost:8081/api/v1/likes`,
+          {
+            userId: userId,
+            propertyId: id,
+          }
+        );
+        setProperty(response.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    likeProp();
   };
 
   return (
@@ -103,10 +119,11 @@ export const PropertyDetail = (props) => {
 
       <div className="property-details">
         {role === Role.CUSTOMER ? (
-          <FavoriteBorderIcon
-            onClick={handelLike}
-            style={{ fontSize: 50 }}
-          ></FavoriteBorderIcon>
+          // <FavoriteBorderIcon
+          //   onClick={handelLike}
+          //   style={{ fontSize: 50 }}
+          // ></FavoriteBorderIcon>
+          <LikeButton userId={userId} propertyId={id} />
         ) : null}
         <h1>Price: ${property.price}</h1>
         <h2>Property Details</h2>
