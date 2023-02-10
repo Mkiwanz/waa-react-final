@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import axios from "axios";
 import "./NewApplication.css";
@@ -14,7 +14,24 @@ function NewApplication() {
   const { propId } = useParams();
 
   const userId = Cookies.get("userId");
+  let ownerEmail;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getOwnerEmail = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8081/api/v1/properties/${propId}/ownerEmail`
+        );
+        ownerEmail = response.data;
+        console.log(ownerEmail);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    getOwnerEmail();
+  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -27,6 +44,7 @@ function NewApplication() {
             creditScore: creditScore,
             offerDescription: offerDescription,
             offerAmount: offer,
+            agentEmail: ownerEmail,
             status: 4,
           }
         );

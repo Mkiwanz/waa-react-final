@@ -68,7 +68,7 @@ const SliderData = [
 //   );
 // };
 
-export const PropertyDetail = (props) => {
+export const PropertyDetail = () => {
   const [property, setProperty] = useState({});
   const [refreshProperty, setRefreshProperty] = useState(false);
   const { id } = useParams();
@@ -83,6 +83,7 @@ export const PropertyDetail = (props) => {
           `http://localhost:8081/api/v1/properties/${id}`
         );
         setProperty(response.data);
+        console.log(response.data);
       } catch (err) {
         console.error(err);
       }
